@@ -139,6 +139,11 @@ func getListObjectsResponse(session *models.Principal, params user_api.ListObjec
 	if params.WithVersions != nil {
 		withVersions = *params.WithVersions
 	}
+
+	if getMinIOStandalone() {
+		withVersions = false
+	}
+
 	// bucket request needed to proceed
 	if params.BucketName == "" {
 		return nil, prepareError(errBucketNameNotInRequest)

@@ -69,6 +69,10 @@ func getMinIORegion() string {
 	return strings.TrimSpace(env.Get(ConsoleMinIORegion, ""))
 }
 
+func getMinIOStandalone() bool {
+	return strings.ToLower(env.Get(ConsoleMinIOStandalone, "off")) == "on"
+}
+
 func getMinIOEndpoint() string {
 	server := getMinIOServer()
 	if strings.Contains(server, "://") {
