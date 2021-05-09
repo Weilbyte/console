@@ -218,9 +218,18 @@ const ObjectDetails = ({
         )
         .then((res: IFileInfo[]) => {
           const result = get(res, "objects", []);
-          setActualInfo(
-            result.find((el: IFileInfo) => el.is_latest) || emptyFile
-          );
+
+          if (result.length === 1) {
+            if (result[0].version_id === undefined) result[0].version_id = null;
+            setActualInfo(
+              result[0] || emptyFile
+            );
+          } else {
+            setActualInfo(
+              result.find((el: IFileInfo) => el.is_latest) || emptyFile
+            );
+          }
+
           setVersions(result.filter((el: IFileInfo) => !el.is_latest));
           setLoadObjectData(false);
         })
